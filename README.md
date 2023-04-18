@@ -1,9 +1,9 @@
 ### A simple MERN auth application
 
 It a authentication application, any user can 
-* register 
-* login
-* redirected to home based on user details 
+* Register 
+* Login
+* Redirected to home based on user details stored in mongoDB
 
 In Home page, user can see thier details and whenever user click on logout button it is redirected to login page.
 
