@@ -1,4 +1,4 @@
-### A fully fucntional MERN auth application 👨‍💻
+### A fully functional MERN auth application 👨‍💻
 
 It is a authentication application, any user can 
 * Register 
