@@ -2,12 +2,20 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { ThreeDots } from "react-loader-spinner";
+import { useToast } from "@chakra-ui/react";
 import axios from "axios";
 import "./index.css";
 
 const Login = () => {
   const navigate = useNavigate();
   const logged = Cookies.get("jwt");
+
+  const toast = useToast({
+    position: "top-right",
+    containerStyle: {
+      color: "#3E795F",
+    },
+  });
 
   useEffect(() => {
     if (logged) {
@@ -32,13 +40,25 @@ const Login = () => {
         }
       );
       console.log(response.data);
+      toast({
+        title: "You are successfully signed in! ✅",
+        status: "success",
+        variant: "left-accent",
+        isClosable: true,
+      });
       setError(false);
       setLoad(false);
       Cookies.set("jwt", response.data.token);
-      alert("Your successfully signed in!");
+
       localStorage.setItem("user", JSON.stringify(response.data.user));
       navigate("/");
     } catch (error) {
+      toast({
+        title: "You are entered invalid details ❌",
+        status: "error",
+        variant: "left-accent",
+        isClosable: true,
+      });
       console.error(error);
       setError(true);
       setLoad(false);

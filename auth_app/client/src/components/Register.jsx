@@ -2,12 +2,20 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ThreeCircles } from "react-loader-spinner";
+import { useToast } from "@chakra-ui/react";
 import Cookies from "js-cookie";
 import "./index.css";
 
 const Register = () => {
   const navigate = useNavigate();
   const logged = Cookies.get("jwt");
+
+  const toast = useToast({
+    position: "top-right",
+    containerStyle: {
+      color: "#3E795F",
+    },
+  });
 
   useEffect(() => {
     if (logged) {
@@ -44,8 +52,19 @@ const Register = () => {
         setError(false);
         setLoad(false);
         navigate("/login");
-        alert("Your Registration was successfully done! Please Login:)");
+        toast({
+          title: "Your registration successfully done! Please Login ✅",
+          status: "success",
+          variant: "left-accent",
+          isClosable: true,
+        });
       } catch (error) {
+        toast({
+          title: "Email is already exist! Try to sign up with new one ❌",
+          status: "error",
+          variant: "left-accent",
+          isClosable: true,
+        });
         console.log("Error", error.message);
         setLoad(false);
         setError(true);
